@@ -4,124 +4,585 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#15131e">
   <title>BOKY BOKYY</title>
   <style>
+    :root {
+      --bg: #15131e;
+      --panel: #242131;
+      --panel2: #302b40;
+      --text: #f8f5ff;
+      --muted: #aaa5bb;
+      --gold: #f1c77b;
+      --purple: #9869ee;
+      --border: #40394f;
+    }
+
     * { box-sizing: border-box; }
+
     body {
       margin: 0;
-      background: #302d3d;
-      color: white;
+      background: var(--bg);
+      color: var(--text);
       font-family: Arial, sans-serif;
-      padding-bottom: 85px;
+      padding-bottom: 105px;
     }
+
+    button, a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button { cursor: pointer; }
+
     header {
-      padding: 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: #484455;
+      padding: 22px 18px;
+      background: #201c2b;
+      border-bottom: 1px solid var(--border);
     }
-    .logo { font-size: 23px; font-weight: bold; color: #f7e5b7; }
-    .banner {
-      margin: 20px 15px;
-      padding: 35px 20px;
-      border-radius: 18px;
-      background: linear-gradient(120deg,#19132f,#6535c9,#e3a34e);
-      text-align: center;
+
+    .logo {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--gold);
     }
-    .banner h1 { font-size: 27px; }
-    .section { margin: 25px 15px; }
-    .actions, .cards {
+
+    .language {
+      background: var(--panel2);
+      border: 1px solid var(--border);
+      color: white;
+      padding: 9px 12px;
+      border-radius: 12px;
+    }
+
+    main {
+      max-width: 650px;
+      margin: auto;
+      padding: 18px;
+    }
+
+    .page[hidden] {
+      display: none !important;
+    }
+
+    .hero {
+      padding: 34px 22px;
+      border-radius: 22px;
+      background: linear-gradient(
+        135deg,
+        #352052,
+        #7444c0 55%,
+        #d79a66
+      );
+      margin-bottom: 26px;
+    }
+
+    .hero h1 {
+      font-size: 29px;
+      margin: 0 0 14px;
+    }
+
+    .hero p {
+      line-height: 1.6;
+      opacity: .9;
+    }
+
+    .btn {
+      background: var(--gold);
+      color: #211829;
+      border: none;
+      padding: 13px 20px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .btn.secondary {
+      background: var(--panel2);
+      color: white;
+      border: 1px solid var(--border);
+    }
+
+    h2 {
+      font-size: 22px;
+      margin: 24px 0 16px;
+    }
+
+    .grid {
       display: grid;
-      grid-template-columns: repeat(2,1fr);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 12px;
     }
-    .action, .card {
-      background: #484455;
-      border-radius: 14px;
-      padding: 20px 12px;
-      text-align: center;
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 20px;
     }
-    .action { font-size: 15px; }
-    .action span { display: block; font-size: 30px; margin-bottom: 10px; }
-    .card .crown { font-size: 48px; }
-    .card h3 { color: #f7e5b7; }
-    .card p { font-size: 13px; color: #ddd; }
-    .btn {
-      background: #ebc37f;
-      border: 0;
-      border-radius: 8px;
-      padding: 10px 15px;
-      font-weight: bold;
+
+    .action {
+      text-align: center;
       cursor: pointer;
     }
+
+    .action .emoji {
+      font-size: 28px;
+      display: block;
+      margin-bottom: 12px;
+    }
+
+    .action strong {
+      font-size: 14px;
+    }
+
+    .muted {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .vip-card {
+      margin-bottom: 14px;
+    }
+
+    .vip-card h3 {
+      color: var(--gold);
+      margin: 0 0 10px;
+    }
+
+    .vip-card .btn {
+      margin-top: 12px;
+    }
+
+    .stat {
+      font-size: 27px;
+      font-weight: 800;
+      color: var(--gold);
+      margin: 10px 0;
+    }
+
+    .task-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .task-row strong {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .task-row .btn {
+      flex-shrink: 0;
+    }
+
+    .notice {
+      margin-top: 18px;
+      padding: 14px;
+      background: #30283d;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
     nav {
       position: fixed;
       bottom: 0;
       left: 0;
-      width: 100%;
-      background: #484455;
+      right: 0;
       display: flex;
       justify-content: space-around;
-      padding: 14px 3px 22px;
+      background: #211d2d;
+      border-top: 1px solid var(--border);
+      padding: 12px 3px max(18px, env(safe-area-inset-bottom));
+      z-index: 10;
     }
-    nav a {
-      color: white;
-      text-decoration: none;
-      text-align: center;
+
+    nav button {
+      flex: 1;
+      background: none;
+      border: none;
+      color: var(--muted);
       font-size: 12px;
+      padding: 5px 0;
     }
-    nav span { display: block; font-size: 23px; margin-bottom: 5px; }
+
+    nav button span {
+      display: block;
+      font-size: 23px;
+      margin-bottom: 6px;
+    }
+
+    nav button.active {
+      color: var(--gold);
+    }
+
+    #toast {
+      position: fixed;
+      left: 20px;
+      right: 20px;
+      bottom: 110px;
+      max-width: 500px;
+      margin: auto;
+      background: #3b3150;
+      border: 1px solid var(--purple);
+      border-radius: 14px;
+      padding: 15px;
+      text-align: center;
+      display: none;
+      z-index: 20;
+    }
   </style>
 </head>
+
 <body>
   <header>
     <div class="logo">👑 BOKY BOKYY</div>
-    <div>🌐 English</div>
+    <button class="language" id="langBtn" onclick="toggleLanguage()">
+      🌐 ქართული
+    </button>
   </header>
 
-  <div class="banner">
-    <h1>Welcome to BOKY BOKYY</h1>
-    <p>Explore tasks, rewards and membership benefits.</p>
-    <button class="btn" onclick="location.hash='tasks'">Explore Tasks</button>
-  </div>
-
-  <div class="section">
-    <h2>Quick Access</h2>
-    <div class="actions">
-      <div class="action"><span>💼</span>Account</div>
-      <div class="action"><span>🎁</span>Rewards</div>
-      <div class="action"><span>👥</span>Invite Friends</div>
-      <div class="action"><span>📋</span>Daily Tasks</div>
-    </div>
-  </div>
-
-  <div class="section">
-    <h2>💎 Task Hall</h2>
-    <div class="cards">
-      <div class="card">
-        <div class="crown">👑</div>
-        <h3>VIP 1</h3>
-        <p>Premium Membership</p>
-        <button class="btn" onclick="location.hash='vip'">View Details</button>
+  <main>
+    <section id="home" class="page">
+      <div class="hero">
+        <h1 data-en="Welcome to BOKY BOKYY"
+            data-ka="კეთილი იყოს შენი მობრძანება">
+          Welcome to BOKY BOKYY
+        </h1>
+        <p data-en="Explore tasks, rewards and membership benefits."
+           data-ka="აღმოაჩინე დავალებები, ჯილდოები და წევრობის უპირატესობები.">
+          Explore tasks, rewards and membership benefits.
+        </p>
+        <button class="btn" onclick="showPage('tasks')"
+                data-en="Explore Tasks"
+                data-ka="დავალებების ნახვა">
+          Explore Tasks
+        </button>
       </div>
-      <div class="card">
-        <div class="crown">👑</div>
-        <h3>VIP 2</h3>
-        <p>Premium Membership</p>
-        <button class="btn" onclick="location.hash='vip'">View Details</button>
-      </div>
-    </div>
-  </div>
 
-  <nav>
-    <a href="#home"><span>🏠</span>Home</a>
-    <a href="#tasks"><span>📋</span>Task</a>
-    <a href="#team"><span>👥</span>Team</a>
-    <a href="#vip"><span>👑</span>VIP</a>
-    <a href="#me"><span>👤</span>Me</a>
+      <h2 data-en="Quick Access" data-ka="სწრაფი წვდომა">
+        Quick Access
+      </h2>
+
+      <div class="grid">
+        <div class="card action" onclick="showPage('me')">
+          <span class="emoji">👤</span>
+          <strong data-en="Account" data-ka="ანგარიში">Account</strong>
+        </div>
+        <div class="card action" onclick="showPage('tasks')">
+          <span class="emoji">🎁</span>
+          <strong data-en="Rewards" data-ka="ჯილდოები">Rewards</strong>
+        </div>
+        <div class="card action" onclick="showPage('team')">
+          <span class="emoji">👥</span>
+          <strong data-en="Invite Friends" data-ka="მეგობრების მოწვევა">
+            Invite Friends
+          </strong>
+        </div>
+        <div class="card action" onclick="showPage('tasks')">
+          <span class="emoji">📋</span>
+          <strong data-en="Daily Tasks" data-ka="დღიური დავალებები">
+            Daily Tasks
+          </strong>
+        </div>
+      </div>
+
+      <h2 data-en="Membership" data-ka="წევრობა">Membership</h2>
+      <div class="card">
+        <h3>👑 BOKY Membership</h3>
+        <p class="muted"
+           data-en="Discover membership levels and available benefits."
+           data-ka="გაეცანი წევრობის დონეებს და ხელმისაწვდომ უპირატესობებს.">
+          Discover membership levels and available benefits.
+        </p>
+        <button class="btn" onclick="showPage('vip')"
+                data-en="View Membership"
+                data-ka="წევრობის ნახვა">
+          View Membership
+        </button>
+      </div>
+    </section>
+
+    <section id="tasks" class="page" hidden>
+      <h2 data-en="📋 Daily Tasks" data-ka="📋 დღიური დავალებები">
+        📋 Daily Tasks
+      </h2>
+      <p class="muted"
+         data-en="Complete demo activities and explore the platform."
+         data-ka="შეასრულე საცდელი აქტივობები და გაეცანი პლატფორმას.">
+        Complete demo activities and explore the platform.
+      </p>
+
+      <div class="card task-row">
+        <div>
+          <strong data-en="Explore the platform" data-ka="პლატფორმის გაცნობა">
+            Explore the platform
+          </strong>
+          <span class="muted">Demo activity</span>
+        </div>
+        <button class="btn" onclick="completeTask(1)" id="task1">
+          Start
+        </button>
+      </div>
+
+      <div class="card task-row">
+        <div>
+          <strong data-en="View membership options" data-ka="წევრობის ნახვა">
+            View membership options
+          </strong>
+          <span class="muted">Demo activity</span>
+        </div>
+        <button class="btn" onclick="completeTask(2)" id="task2">
+          Start
+        </button>
+      </div>
+
+      <div class="notice"
+           data-en="Demo only. These activities do not earn money or create withdrawable balances."
+           data-ka="ეს დემო ვერსიაა. აქტივობები არ გამოიმუშავებს ფულს და არ ქმნის გასატან ბალანსს.">
+        Demo only. These activities do not earn money or create withdrawable balances.
+      </div>
+    </section>
+
+    <section id="team" class="page" hidden>
+      <h2 data-en="👥 My Team" data-ka="👥 ჩემი გუნდი">👥 My Team</h2>
+
+      <div class="grid">
+        <div class="card">
+          <span class="muted" data-en="Invited" data-ka="მოწვეული">Invited</span>
+          <div class="stat">0</div>
+        </div>
+        <div class="card">
+          <span class="muted" data-en="Members" data-ka="წევრები">Members</span>
+          <div class="stat">0</div>
+        </div>
+      </div>
+
+      <h2 data-en="Invite Friends" data-ka="მეგობრების მოწვევა">
+        Invite Friends
+      </h2>
+      <div class="card">
+        <p class="muted"
+           data-en="Share the public website with your friends."
+           data-ka="გაუზიარე მეგობრებს საიტის საჯარო ბმული.">
+          Share the public website with your friends.
+        </p>
+        <button class="btn" onclick="shareSite()"
+                data-en="Share Website" data-ka="საიტის გაზიარება">
+          Share Website
+        </button>
+      </div>
+    </section>
+
+    <section id="vip" class="page" hidden>
+      <h2 data-en="👑 Membership" data-ka="👑 წევრობა">
+        👑 Membership
+      </h2>
+      <p class="muted"
+         data-en="Preview the available membership categories."
+         data-ka="დაათვალიერე წევრობის საცდელი კატეგორიები.">
+        Preview the available membership categories.
+      </p>
+
+      <div class="card vip-card">
+        <h3>👑 VIP 1</h3>
+        <p class="muted">Starter Membership</p>
+        <p class="muted">Demo tier — no payment required</p>
+        <button class="btn" onclick="showToast('Demo membership only')">
+          Details
+        </button>
+      </div>
+
+      <div class="card vip-card">
+        <h3>💎 VIP 2</h3>
+        <p class="muted">Premium Membership</p>
+        <p class="muted">Demo tier — no payment required</p>
+        <button class="btn" onclick="showToast('Demo membership only')">
+          Details
+        </button>
+      </div>
+    </section>
+
+    <section id="me" class="page" hidden>
+      <h2 data-en="👤 My Profile" data-ka="👤 ჩემი პროფილი">
+        👤 My Profile
+      </h2>
+
+      <div class="card">
+        <div style="font-size:45px">👤</div>
+        <h3 data-en="Guest Account" data-ka="სტუმრის ანგარიში">
+          Guest Account
+        </h3>
+        <p class="muted"
+           data-en="You are browsing the demonstration website."
+           data-ka="თქვენ ათვალიერებთ საიტის დემო ვერსიას.">
+          You are browsing the demonstration website.
+        </p>
+      </div>
+
+      <h2 data-en="Settings" data-ka="პარამეტრები">Settings</h2>
+      <div class="card">
+        <p data-en="Language" data-ka="ენა">Language</p>
+        <button class="btn secondary" onclick="toggleLanguage()">
+          English / ქართული
+        </button>
+      </div>
+
+      <div class="notice"
+           data-en="Registration, login, wallet and payments are not connected."
+           data-ka="რეგისტრაცია, ავტორიზაცია, საფულე და გადახდები ჯერ არ არის დაკავშირებული.">
+        Registration, login, wallet and payments are not connected.
+      </div>
+    </section>
+  </main>
+
+  <nav aria-label="Main navigation">
+    <button class="active" data-page="home" onclick="showPage('home')">
+      <span>🏠</span>Home
+    </button>
+    <button data-page="tasks" onclick="showPage('tasks')">
+      <span>📋</span>Task
+    </button>
+    <button data-page="team" onclick="showPage('team')">
+      <span>👥</span>Team
+    </button>
+    <button data-page="vip" onclick="showPage('vip')">
+      <span>👑</span>VIP
+    </button>
+    <button data-page="me" onclick="showPage('me')">
+      <span>👤</span>Me
+    </button>
   </nav>
 
-<script src="app.js"></script>
+  <div id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    let language = "en";
+
+    const translations = {
+      en: {
+        home: "Home", tasks: "Task", team: "Team",
+        vip: "VIP", me: "Me",
+        start: "Start", done: "Done"
+      },
+      ka: {
+        home: "მთავარი", tasks: "დავალება", team: "გუნდი",
+        vip: "VIP", me: "პროფილი",
+        start: "დაწყება", done: "შესრულდა"
+      }
+    };
+
+    function showPage(pageId) {
+      const selected = document.getElementById(pageId);
+      if (!selected || !selected.classList.contains("page")) return;
+
+      document.querySelectorAll(".page").forEach(page => {
+        page.hidden = page.id !== pageId;
+      });
+
+      document.querySelectorAll("nav button").forEach(button => {
+        button.classList.toggle(
+          "active",
+          button.dataset.page === pageId
+        );
+      });
+
+      history.replaceState(null, "", "#" + pageId);
+      window.scrollTo(0, 0);
+    }
+
+    function toggleLanguage() {
+      language = language === "en" ? "ka" : "en";
+      document.documentElement.lang = language;
+
+      document.querySelectorAll("[data-en][data-ka]").forEach(el => {
+        el.textContent = el.dataset[language];
+      });
+
+      document.getElementById("langBtn").textContent =
+        language === "en" ? "🌐 ქართული" : "🌐 English";
+
+      document.querySelectorAll("nav button").forEach(button => {
+        const key = button.dataset.page;
+        const icon = button.querySelector("span").textContent;
+        button.textContent = "";
+        const span = document.createElement("span");
+        span.textContent = icon;
+        button.appendChild(span);
+        button.appendChild(
+          document.createTextNode(translations[language][key])
+        );
+      });
+
+      [1, 2].forEach(id => {
+        const button = document.getElementById("task" + id);
+        const done = button.dataset.done === "true";
+        button.textContent = done
+          ? translations[language].done
+          : translations[language].start;
+      });
+    }
+
+    function completeTask(id) {
+      const button = document.getElementById("task" + id);
+      if (button.dataset.done === "true") return;
+
+      button.dataset.done = "true";
+      button.textContent = translations[language].done;
+      button.disabled = true;
+      showToast(
+        language === "ka"
+          ? "დემო დავალება შესრულებულია!"
+          : "Demo task completed!"
+      );
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.style.display = "block";
+      clearTimeout(window.toastTimer);
+      window.toastTimer = setTimeout(() => {
+        toast.style.display = "none";
+      }, 3000);
+    }
+
+    async function shareSite() {
+      const url = window.location.href.split("#")[0];
+
+      try {
+        if (navigator.share) {
+          await navigator.share({
+            title: "BOKY BOKYY",
+            url
+          });
+        } else if (navigator.clipboard) {
+          await navigator.clipboard.writeText(url);
+          showToast("Link copied!");
+        } else {
+          showToast(url);
+        }
+      } catch (error) {
+        if (error.name !== "AbortError") {
+          showToast("Unable to share right now");
+        }
+      }
+    }
+
+    const initialPage = location.hash.slice(1);
+    showPage(
+      document.getElementById(initialPage)?.classList.contains("page")
+        ? initialPage
+        : "home"
+    );
+  </script>
 </body>
 </html>
