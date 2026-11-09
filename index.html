@@ -1,0 +1,125 @@
+
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BOKY BOKYY</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #302d3d;
+      color: white;
+      font-family: Arial, sans-serif;
+      padding-bottom: 85px;
+    }
+    header {
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #484455;
+    }
+    .logo { font-size: 23px; font-weight: bold; color: #f7e5b7; }
+    .banner {
+      margin: 20px 15px;
+      padding: 35px 20px;
+      border-radius: 18px;
+      background: linear-gradient(120deg,#19132f,#6535c9,#e3a34e);
+      text-align: center;
+    }
+    .banner h1 { font-size: 27px; }
+    .section { margin: 25px 15px; }
+    .actions, .cards {
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+      gap: 12px;
+    }
+    .action, .card {
+      background: #484455;
+      border-radius: 14px;
+      padding: 20px 12px;
+      text-align: center;
+    }
+    .action { font-size: 15px; }
+    .action span { display: block; font-size: 30px; margin-bottom: 10px; }
+    .card .crown { font-size: 48px; }
+    .card h3 { color: #f7e5b7; }
+    .card p { font-size: 13px; color: #ddd; }
+    .btn {
+      background: #ebc37f;
+      border: 0;
+      border-radius: 8px;
+      padding: 10px 15px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: #484455;
+      display: flex;
+      justify-content: space-around;
+      padding: 14px 3px 22px;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      text-align: center;
+      font-size: 12px;
+    }
+    nav span { display: block; font-size: 23px; margin-bottom: 5px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">👑 BOKY BOKYY</div>
+    <div>🌐 English</div>
+  </header>
+
+  <div class="banner">
+    <h1>Welcome to BOKY BOKYY</h1>
+    <p>Explore tasks, rewards and membership benefits.</p>
+    <button class="btn" onclick="location.hash='tasks'">Explore Tasks</button>
+  </div>
+
+  <div class="section">
+    <h2>Quick Access</h2>
+    <div class="actions">
+      <div class="action"><span>💼</span>Account</div>
+      <div class="action"><span>🎁</span>Rewards</div>
+      <div class="action"><span>👥</span>Invite Friends</div>
+      <div class="action"><span>📋</span>Daily Tasks</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>💎 Task Hall</h2>
+    <div class="cards">
+      <div class="card">
+        <div class="crown">👑</div>
+        <h3>VIP 1</h3>
+        <p>Premium Membership</p>
+        <button class="btn" onclick="location.hash='vip'">View Details</button>
+      </div>
+      <div class="card">
+        <div class="crown">👑</div>
+        <h3>VIP 2</h3>
+        <p>Premium Membership</p>
+        <button class="btn" onclick="location.hash='vip'">View Details</button>
+      </div>
+    </div>
+  </div>
+
+  <nav>
+    <a href="#home"><span>🏠</span>Home</a>
+    <a href="#tasks"><span>📋</span>Task</a>
+    <a href="#team"><span>👥</span>Team</a>
+    <a href="#vip"><span>👑</span>VIP</a>
+    <a href="#me"><span>👤</span>Me</a>
+  </nav>
+</body>
+</html>
